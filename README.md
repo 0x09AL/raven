@@ -25,3 +25,27 @@ python raven.py -c 'Evil Corp' -s al
 * Output in CSV format (For using with GoPhish)
 
 # Screenshots
+
+Screenshot - 1 - 
+
+![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-01.png)
+
+
+Screenshot - 2
+
+![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-02.png)
+
+
+Screenshot - 3
+
+![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-03.png)
+
+
+Screenshot - 4
+
+![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-04.png)
+
+
+Screenshot - 5
+
+![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-05.png)
