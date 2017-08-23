@@ -28,7 +28,9 @@ class Requester(object):
 			
 		self.driver.get("https://www.linkedin.com/uas/login")
 		self.driver.execute_script('localStorage.clear();')
-		if(str(self.driver.title).startswith("Sign In")):
+		# Fixed UTF-8 issue in title.
+		
+		if(str(self.driver.title).encode('ascii','replace').startswith("Sign In")):
 			print "[+] Login Page loaded successfully [+]"
 			lnkUsername = self.driver.find_element_by_id("session_key-login")
 			lnkUsername.send_keys(username)
