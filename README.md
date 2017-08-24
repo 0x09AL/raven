@@ -21,23 +21,28 @@ usage: raven.py [-h] -c COMPANY -s STATE -d DOMAIN [-p PAGES]
 
 Raven - LinkedIn Information Gathering Tool
 
-optional arguments:
 
-  -h, --help            show this help message and exit
-  -c COMPANY, --company COMPANY
-                        Input the Company name. Ex: Pizzahut
-  -s STATE, --state STATE
-                        Input the State initials. Ex: uk , al , etc...
-  -d DOMAIN, --domain DOMAIN
-                        Input the domain name. Ex: gmail.com
-  -p PAGES, --pages PAGES
-                        Number of google pages to navigate. Ex: 3
+      -c COMPANY, --company COMPANY       Input the Company name. Ex: Pizzahut
+                        
+      -s STATE, --state STATE             Input the State initials. Ex: uk , al , etc...
+                        
+      -d DOMAIN, --domain DOMAIN          Input the domain name. Ex: gmail.com
+                        
+      -p PAGES, --pages PAGES             Number of google pages to navigate. Ex: 3
+                        
 
 For example , if the company that you want to search is Evil Corp and the state is Albania the parameters would be:
 
-python raven.py -c 'Evil Corp' -s al -d evilcorp.al
 
+    python raven.py -c 'Evil Corp' -s al -d evilcorp.al
 
+If you are not sure what the state is you can put www .
+
+You can also specify how many pages of Google Search you want to search  with the -p parameters
+
+    python raven.py -c 'Evil Corp' -s al -d evilcorp.al -p 3
+
+The command above will search for results on 3 first pages of google.
 
 # Features
 
