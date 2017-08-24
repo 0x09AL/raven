@@ -13,11 +13,31 @@ USE IT AT YOUR OWN RISK.
 # Documentation
 
 Usage of this is application is pretty simple.
-It requires two parameters. The first one is the company name and the second one is the country initials.
+It requires at least three parameters. The first one is the company name , the second one is the country initials and the domain name
+
+# Usage
+
+usage: raven.py [-h] -c COMPANY -s STATE -d DOMAIN [-p PAGES]
+
+Raven - LinkedIn Information Gathering Tool
+
+optional arguments:
+
+  -h, --help            show this help message and exit
+  -c COMPANY, --company COMPANY
+                        Input the Company name. Ex: Pizzahut
+  -s STATE, --state STATE
+                        Input the State initials. Ex: uk , al , etc...
+  -d DOMAIN, --domain DOMAIN
+                        Input the domain name. Ex: gmail.com
+  -p PAGES, --pages PAGES
+                        Number of google pages to navigate. Ex: 3
 
 For example , if the company that you want to search is Evil Corp and the state is Albania the parameters would be:
 
-python raven.py -c 'Evil Corp' -s al
+python raven.py -c 'Evil Corp' -s al -d evilcorp.al
+
+
 
 # Features
 
@@ -26,7 +46,7 @@ python raven.py -c 'Evil Corp' -s al
 
 # Screenshots
 
-Screenshot - 1 - 
+Screenshot - 1
 
 ![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-01.png)
 
