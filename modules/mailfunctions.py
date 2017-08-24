@@ -67,7 +67,7 @@ class MailFunctions(object):
 		for email in emailList:
 			url = "https://haveibeenpwned.com/api/v2/breachedaccount/%s?truncateResponse=true" % email[3]
 			time.sleep(1) # Sleep to avoid many requests error from the web server
-
+			print "[+] Checking e-mail %s [+]" % email[3]
 			r = requests.get(url,headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0'})
 			if(r.status_code == 200):
 				try:

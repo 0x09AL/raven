@@ -62,6 +62,10 @@ class Parser(object):
 	def extractPosition(self,response):
 		soupParser = BeautifulSoup(response, 'html.parser')
 		position = soupParser.findAll("h2", class_="pv-top-card-section__headline")[0].string
+		# To avoid big position names that will break the table format.
+		if(len(position)>40):
+			position = position[0:40]
+		
 		return position
 
 	def extractCompany(self,response):
@@ -74,6 +78,7 @@ class Parser(object):
 
 	def extractPhone(self,response):
 		# Will return the phone if found
+		# To be implemented
 		return
 
 

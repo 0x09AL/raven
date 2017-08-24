@@ -46,6 +46,10 @@ RRRRRRRR     RRRRRRRAAAAAAA                   AAAAAAAVVV            EEEEEEEEEEEE
 ArgParser = argparse.ArgumentParser(description='Raven - LinkedIn Information Gathering Tool')
 ArgParser.add_argument('-c','--company', help='Input the Company name. Ex: Pizzahut ', required=True)
 ArgParser.add_argument('-s','--state', help='Input the State initials. Ex: uk , al , etc...', required=True)
+ArgParser.add_argument('-d','--domain', help='Input the domain name. Ex: gmail.com ', required=True)
+ArgParser.add_argument('-p','--pages', help='Number of google pages to navigate. Ex: 3', required=False)
+
+
 args = vars(ArgParser.parse_args())
 
 ParserObject = parser.Parser(args['state'])
@@ -53,6 +57,13 @@ RequesterObject = requester.Requester()
 
 companyArg = pathname2url(args['company'])
 state = args['state']
+
+domain = args['domain']
+
+pages_count = 1
+if args["pages"] is not None:
+	pages_count = args['pages']
+
 
 # Prints the banner, who doesn't loves banners :P
 
@@ -67,7 +78,7 @@ sys.stdout.write(CYAN)
 Persons = []
 
 # Download data from duck duck go
-htmlData = RequesterObject.getLinkedinLinks(state,companyArg)
+htmlData = RequesterObject.getLinkedinLinks(state,companyArg,pages_count)
 
 
 # Parses the data from duck duck go
@@ -97,7 +108,7 @@ for x in URLs:
 	except Exception, error:
 		sys.stdout.write(RED)
 		print "[-] Error : %s [-]" % error
-		sys.stdout.write(RESET)
+		sys.stdout.write(CYAN)
 		pass
 
 sys.stdout.write(CYAN)
@@ -121,10 +132,6 @@ Persons = temp
 
 MailObject = mailfunctions.MailFunctions(Persons)
 
-sys.stdout.write(GREEN)
-
-
-domain = raw_input("\n#> Enter domain : ")
 
 sys.stdout.write(RESET)
 

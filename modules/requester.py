@@ -55,14 +55,21 @@ class Requester(object):
 		# Fix this with a better error Handling 
 		return self.driver.page_source.encode('ascii','replace')
 
-	def getLinkedinLinks(self,state,company):
+	def getLinkedinLinks(self,state,company,pages_count=1):
 		print "[+] Getting profiles from Google [+]"
 		dork = "site:%s.linkedin.com Current: %s" % (state , company)
+
+
 		self.driver.get("https://www.google.al/search?q=%s&t=h_&ia=web" % dork)
-		# Extend the search - Commented because of tests
-		#self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
-		#sleep(5)
-		return self.driver.page_source.encode('ascii','replace')
+		data = self.driver.page_source.encode('ascii','replace')
+		if(pages_count > 1):
+			for i in range(1,int(pages_count)):
+				start_at = 10 * i
+				print "[+] Checking page %d on Google [+]" % i
+				self.driver.get("https://www.google.al/search?q=%s&t=h_&ia=web&start=%d" % (dork,start_at))
+				sleep(1)
+				data += self.driver.page_source.encode('ascii','replace')
+		return data
 
 	def kill(self):
 		self.driver.quit()
