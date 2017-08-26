@@ -39,7 +39,7 @@ class MailFunctions(object):
 			elif(format==5):
 				email = "%s.%s@%s" % (lastname,firstname[0],domain)
 			elif(format==6):
-				email = "%s.%s@%s" % (firstname,lastname[0],domain)
+				email = "%s.%s@%s" % (lastname[0],firstname,domain)
 			elif(format==7):
 				email = "%s.%s@%s" % (lastname[0],firstname,domain)
 			else:
@@ -48,9 +48,9 @@ class MailFunctions(object):
 			person.append(email.lower())
 		return self.Persons
 
-	def saveOutput(self,emailList):
+	def saveOutput(self,emailList,domain):
 		
-		filename = "%s%s%s" % ("output/",str(int(time.time())),'.csv')
+		filename = "%s%s%s" % ("output/", domain + "-" + str(int(time.time())),'.csv')
 		print "[+] Saving output to %s " % filename
 		output = open(filename , "w")
 		head = "First Name,Last Name,Position,Email\n"

@@ -49,8 +49,18 @@ ArgParser.add_argument('-s','--state', help='Input the State initials. Ex: uk , 
 ArgParser.add_argument('-d','--domain', help='Input the domain name. Ex: gmail.com ', required=True)
 ArgParser.add_argument('-p','--pages', help='Number of google pages to navigate. Ex: 3', required=False)
 
+# You can hardcode the credentials or use the parameters.
+
+ArgParser.add_argument('-lu','--lusername', help='The linkedin username to use.', required=False)
+ArgParser.add_argument('-lp','--lpassword', help='The linekdin password to use.', required=False)
+
 
 args = vars(ArgParser.parse_args())
+
+if args["lusername"] is not None and args["lpassword"] is not None:
+	linkedinUsername = args["lusername"]
+	linkedinPassword = args["lpassword"]
+
 
 ParserObject = parser.Parser(args['state'])
 RequesterObject = requester.Requester()
@@ -169,7 +179,7 @@ print tabulate(CompletedList, headers=['Name', 'Position', 'Company', 'E-mail'],
 
 # Will save the data to a CSV format for integration with phishing frameworks
 sys.stdout.write(GREEN)
-MailObject.saveOutput(CompletedList)
+MailObject.saveOutput(CompletedList,domain)
 
 RequesterObject.kill()
 

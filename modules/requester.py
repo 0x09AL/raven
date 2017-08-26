@@ -60,13 +60,13 @@ class Requester(object):
 		dork = "site:%s.linkedin.com Current: %s" % (state , company)
 
 
-		self.driver.get("https://www.google.al/search?q=%s&t=h_&ia=web" % dork)
+		self.driver.get("https://www.google.com/search?q=%s&t=h_&ia=web" % dork)
 		data = self.driver.page_source.encode('ascii','replace')
 		if(pages_count > 1):
 			for i in range(1,int(pages_count)):
 				start_at = 10 * i
 				print "[+] Checking page %d on Google [+]" % i
-				self.driver.get("https://www.google.al/search?q=%s&t=h_&ia=web&start=%d" % (dork,start_at))
+				self.driver.get("https://www.google.com/search?q=%s&t=h_&ia=web&start=%d" % (dork,start_at))
 				sleep(1)
 				data += self.driver.page_source.encode('ascii','replace')
 		return data
