@@ -21,7 +21,7 @@ linkedinUsername = "EMAIL"
 linkedinPassword = "PASSWORD"
 
 # add the R before banner text
-banner = """
+banner = r"""
 __________                                     _______       ________
 \______   \_____ ___  __ ____   ____           \   _  \      \_____  \
  |       _/\__  \\  \/ // __ \ /    \   ______ /  /_\  \      /  ____/
@@ -31,7 +31,7 @@ __________                                     _______       ________
                                                                                LinkedIn Information Gathering Tool - by @0x09AL\n\n"""
 
 
-print banner
+
 # Parses the data from command line
 ArgParser = argparse.ArgumentParser(description='Raven - LinkedIn Information Gathering Tool')
 ArgParser.add_argument('-c','--company', help='Input the Company name. Ex: Pizzahut ', required=True)
