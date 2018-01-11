@@ -1,6 +1,17 @@
 import time
 import requests
 import json
+import sys
+
+
+RED   = "\033[1;31m"
+BLUE  = "\033[1;34m"
+CYAN  = "\033[1;36m"
+GREEN = "\033[0;32m"
+RESET = "\033[0;0m"
+BOLD    = "\033[;1m"
+REVERSE = "\033[;7m"
+
 
 class MailFunctions(object):
 
@@ -21,36 +32,57 @@ class MailFunctions(object):
 		# 5-{lastname}{firstname[0]}@{domain}
 		# 6-{lastname[0]}{firstname}@{domain}
 		# 7-{firstname}{lastname[0]}@{domain}
+		# 8- ALL
+
 		for person in self.Persons:
 			try:
 				firstname = person[0].split(" ")[0]
 				lastname = person[0].split(" ")[1]
 			except Exception, error:
 				print "[-] Error: %s [-]" % error
-			
-			if(format==1):
-				email = "%s.%s@%s" % (firstname,lastname,domain)
-			elif(format==2):
-				email = "%s.%s@%s" % (lastname,firstname, domain)
-			elif(format==3):
-				email = "%s-%s@%s" % (firstname,lastname, domain)
-			elif(format==4):
-				email = "%s%s@%s" % (firstname[0],lastname,domain)
-			elif(format==5):
-				email = "%s.%s@%s" % (lastname,firstname[0],domain)
-			elif(format==6):
-				email = "%s.%s@%s" % (lastname[0],firstname,domain)
-			elif(format==7):
-				email = "%s.%s@%s" % (lastname[0],firstname,domain)
+			if domain is not None:
+				if(format==1):
+					email = "%s.%s@%s" % (firstname,lastname,domain)
+				elif(format==2):
+					email = "%s.%s@%s" % (lastname,firstname, domain)
+				elif(format==3):
+					email = "%s-%s@%s" % (firstname,lastname, domain)
+				elif(format==4):
+					email = "%s%s@%s" % (firstname[0],lastname,domain)
+				elif(format==5):
+					email = "%s.%s@%s" % (lastname,firstname[0],domain)
+				elif(format==6):
+					email = "%s.%s@%s" % (lastname[0],firstname,domain)
+				elif(format==7):
+					email = "%s.%s@%s" % (lastname[0],firstname,domain)
+				else:
+					print "[-] Invalid Option [-]" # Normally we should never come here
+				person.append(email.lower())
 			else:
-				print "[-] Invalid Option [-]" # Normally we should never come here
-			#	return
-			person.append(email.lower())
+				if(format==1):
+					email = "%s.%s" % (firstname,lastname)
+				elif(format==2):
+					email = "%s.%s" % (lastname,firstname)
+				elif(format==3):
+					email = "%s-%s" % (firstname,lastname)
+				elif(format==4):
+					email = "%s%s" % (firstname[0],lastname)
+				elif(format==5):
+					email = "%s.%s" % (lastname,firstname[0])
+				elif(format==6):
+					email = "%s.%s" % (lastname[0],firstname)
+				elif(format==7):
+					email = "%s.%s" % (lastname[0],firstname)
+				else:
+					print "[-] Invalid Option [-]" # Normally we should never come here
+				person.append(email.lower())
 		return self.Persons
 
 	def saveOutput(self,emailList,domain):
-		
-		filename = "%s%s%s" % ("output/", domain + "-" + str(int(time.time())),'.csv')
+		if domain is None:
+			filename = "%s%s%s" % ("output/",str(int(time.time())),'.csv')
+		else:
+			filename = "%s%s%s" % ("output/", domain + "-" + str(int(time.time())),'.csv')
 		print "[+] Saving output to %s " % filename
 		output = open(filename , "w")
 		head = "First Name,Last Name,Position,Email\n"
@@ -67,14 +99,18 @@ class MailFunctions(object):
 		for email in emailList:
 			url = "https://haveibeenpwned.com/api/v2/breachedaccount/%s?truncateResponse=true" % email[3]
 			time.sleep(1) # Sleep to avoid many requests error from the web server
+			sys.stdout.write(CYAN)
 			print "[+] Checking e-mail %s [+]" % email[3]
 			r = requests.get(url,headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0'})
 			if(r.status_code == 200):
 				try:
 					pwnedSites = json.loads(r.text)
+					sys.stdout.write(RED)
 					for site in pwnedSites:
 						print "[+] %s pwned at %s breach [+]" % (email[3],site["Name"])
 				except Exception:
 					pass
-				
-			
+	def checkOWA(self,emailList,owa_url):
+
+		# To be implemented
+		return False

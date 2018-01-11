@@ -4,7 +4,7 @@ from time import sleep
 import sys
 
 
-RED   = "\033[1;31m"  
+RED   = "\033[1;31m"
 BLUE  = "\033[1;34m"
 CYAN  = "\033[1;36m"
 GREEN = "\033[0;32m"
@@ -15,21 +15,21 @@ REVERSE = "\033[;7m"
 class Requester(object):
 
 	timeout = 10
-	
+
 	def __init__(self):
 		display = Display(visible=0, size=(1600, 1024))
 		display.start()
 		self.driver = webdriver.Firefox()
 		self.driver.delete_all_cookies()
-		
+
 
 
 	def doLogin(self,username,password):
-			
+
 		self.driver.get("https://www.linkedin.com/uas/login")
 		self.driver.execute_script('localStorage.clear();')
 		# Fixed UTF-8 issue in title.
-		
+
 		if(str(self.driver.title).encode('ascii','replace').startswith("Sign In")):
 			print "[+] Login Page loaded successfully [+]"
 			lnkUsername = self.driver.find_element_by_id("session_key-login")
@@ -42,17 +42,19 @@ class Requester(object):
 				sys.stdout.write(CYAN)
 				print "[+] Login Success [+]"
 				sys.stdout.write(RESET)
+				return True
 			else:
 				sys.stdout.write(RED)
 				print "[-] Login Failed [-]"
 				sys.stdout.write(RESET)
+				return False
 
 
 
 	def doGetLinkedin(self,url):
 		self.driver.get(url)
 		sleep(3)
-		# Fix this with a better error Handling 
+		# Fix this with a better error Handling
 		return self.driver.page_source.encode('ascii','replace')
 
 	def getLinkedinLinks(self,state,company,pages_count=1):
@@ -73,5 +75,3 @@ class Requester(object):
 
 	def kill(self):
 		self.driver.quit()
-
-
