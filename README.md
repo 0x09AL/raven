@@ -23,7 +23,7 @@ Usage of this is application is pretty simple.
 It requires at least two parameters. The first one is the company name , the second one is the country initials. If no domain name is specified it will create only user lists.
 
 # Usage
-
+```
 usage: raven.py [-h] -c COMPANY -s STATE [-d DOMAIN] [-p PAGES] [-f FORMAT]
                 [-v VERIFY] [-l] [-chp] [-lu LUSERNAME] [-lp LPASSWORD]
 
@@ -52,7 +52,7 @@ optional arguments:
         -lp LPASSWORD, --lpassword LPASSWORD
                               The linekdin password to use.
 
-
+```
 For example , if the company that you want to search is Evil Corp and the state is Albania the parameters would be:
 
 
