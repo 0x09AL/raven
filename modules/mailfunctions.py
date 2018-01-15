@@ -23,7 +23,7 @@ class MailFunctions(object):
 		self.Persons = persons
 		print "[+] Mail functions initialized [+]"
 
-	def generateEmails(self,domain,format):
+	def generateEmails(self,domain,format,person):
 		# Email formats
 		# 1-{firstname}.{lastname}@{domain}
 		# 2-{lastname}.{firstname}@{domain}
@@ -33,50 +33,51 @@ class MailFunctions(object):
 		# 6-{lastname[0]}{firstname}@{domain}
 		# 7-{firstname}{lastname[0]}@{domain}
 		# 8- ALL
-
-		for person in self.Persons:
-			try:
-				firstname = person[0].split(" ")[0]
-				lastname = person[0].split(" ")[1]
-			except Exception, error:
-				print "[-] Error: %s [-]" % error
-			if domain is not None:
-				if(format==1):
-					email = "%s.%s@%s" % (firstname,lastname,domain)
-				elif(format==2):
-					email = "%s.%s@%s" % (lastname,firstname, domain)
-				elif(format==3):
-					email = "%s-%s@%s" % (firstname,lastname, domain)
-				elif(format==4):
-					email = "%s%s@%s" % (firstname[0],lastname,domain)
-				elif(format==5):
-					email = "%s.%s@%s" % (lastname,firstname[0],domain)
-				elif(format==6):
-					email = "%s.%s@%s" % (lastname[0],firstname,domain)
-				elif(format==7):
-					email = "%s.%s@%s" % (lastname[0],firstname,domain)
-				else:
-					print "[-] Invalid Option [-]" # Normally we should never come here
-				person.append(email.lower())
+		try:
+			firstname = person[0].split(" ")[0]
+			lastname = person[0].split(" ")[1]
+		except Exception, error:
+			print "[-] Error: %s [-]" % error
+		if domain is not None:
+			if(format==1):
+				email = "%s.%s@%s" % (firstname,lastname,domain)
+			elif(format==2):
+				email = "%s.%s@%s" % (lastname,firstname, domain)
+			elif(format==3):
+				email = "%s-%s@%s" % (firstname,lastname, domain)
+			elif(format==4):
+				email = "%s%s@%s" % (firstname[0],lastname,domain)
+			elif(format==5):
+				email = "%s.%s@%s" % (lastname,firstname[0],domain)
+			elif(format==6):
+				email = "%s.%s@%s" % (lastname[0],firstname,domain)
+			elif(format==7):
+				email = "%s.%s@%s" % (lastname[0],firstname,domain)
 			else:
-				if(format==1):
-					email = "%s.%s" % (firstname,lastname)
-				elif(format==2):
-					email = "%s.%s" % (lastname,firstname)
-				elif(format==3):
-					email = "%s-%s" % (firstname,lastname)
-				elif(format==4):
-					email = "%s%s" % (firstname[0],lastname)
-				elif(format==5):
-					email = "%s.%s" % (lastname,firstname[0])
-				elif(format==6):
-					email = "%s.%s" % (lastname[0],firstname)
-				elif(format==7):
-					email = "%s.%s" % (lastname[0],firstname)
-				else:
-					print "[-] Invalid Option [-]" # Normally we should never come here
-				person.append(email.lower())
-		return self.Persons
+				print "[-] Invalid Option [-]" # Normally we should never come here
+		else:
+			if(format==1):
+				email = "%s.%s" % (firstname,lastname)
+			elif(format==2):
+				email = "%s.%s" % (lastname,firstname)
+			elif(format==3):
+				email = "%s-%s" % (firstname,lastname)
+			elif(format==4):
+				email = "%s%s" % (firstname[0],lastname)
+			elif(format==5):
+				email = "%s.%s" % (lastname,firstname[0])
+			elif(format==6):
+				email = "%s.%s" % (lastname[0],firstname)
+			elif(format==7):
+				email = "%s.%s" % (lastname[0],firstname)
+			else:
+				print "[-] Invalid Option [-]" # Normally we should never come here
+		# Since python when passing an array as function uses reference the modified array persisted.
+		# Used a temporarly one.
+		
+		tmp = list(person)
+		tmp.append(email.lower())
+		return tmp
 
 	def saveOutput(self,emailList,domain):
 		if domain is None:

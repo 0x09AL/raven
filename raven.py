@@ -64,6 +64,7 @@ Email formats - John Doe
 # 5- doe.j@example.com 		-- {lastname}{firstname[0]}@{domain}
 # 6- d.joe@example.com 		-- {lastname[0]}{firstname}@{domain}
 # 7- joe.d@example.com 		-- {firstname}{lastname[0]}@{domain}
+# 8- All of above
 '''
 
 if(args["list"]):
@@ -94,7 +95,7 @@ print banner
 
 Persons = []
 
-# Download data from duck duck go
+# Download data from google search engine
 htmlData = RequesterObject.getLinkedinLinks(state,companyArg,pages_count)
 
 
@@ -147,16 +148,24 @@ Persons = temp
 
 # Create the mail parser object
 
+
+
 MailObject = mailfunctions.MailFunctions(Persons)
 
 sys.stdout.write(CYAN)
 # Will generate emails based on pattern and will return an array
-CompletedList = MailObject.generateEmails(domain,int(email_format))
+CompletedList = []
 
+if(email_format == "8"):
+    for person in Persons:
+        for i in range(1,8):
+            CompletedList.append(MailObject.generateEmails(domain,int(i),person))
+else:
+    for person in Persons:
+        CompletedList.append(MailObject.generateEmails(domain,int(email_format),person))
 
 # Will check for pwned accounts.
 if(args["check_pwned"]):
-
 
     MailObject.checkPwned(CompletedList)
 
