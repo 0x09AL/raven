@@ -28,7 +28,7 @@ __________                                     _______       ________
  |    |   \ / __ \\   /\  ___/|   |  \ /_____/ \  \_/   \    /       \
  |____|_  /(____  /\_/  \___  >___|  /          \_____  / /\ \_______ \
         \/      \/          \/     \/                 \/  \/         \/
-                                                                               LinkedIn Information Gathering Tool - by @0x09AL\n\n"""
+                                                                               LinkedIn Information Gathering Tool - by @0x09AL"""
 
 
 
