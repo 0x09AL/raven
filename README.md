@@ -1,122 +1,82 @@
 # raven
 raven is a Linkedin information gathering tool that  can be used by pentesters to gather information about an organization employees using Linkedin.
 
-Please do not use this program to do stupid things. The author does not keep any responsability of what damage has been done by this program.
+## Disclaimer
+
+```
+Please do not use this program to do stupid things. 
+
+The author does not keep any responsibility of any damage done by this program.
 
 USE IT AT YOUR OWN RISK.
-
-# Installation
-
-* Run setup.sh as root
-* Adjust Linkedin credentials in raven.py or pass them as parameters.
-* If you are running in Kali Linux , to avoid problems with selenium update firefox to the latest version.
-# Changes - v0.2
- 
- * (x) More easy to interact.
- * (x) Optional checks and manual format specification.
- * (x) Allows to generate all the avaible formats.
- * ( ) OWA check module is under construction.
- 
-# Documentation
-
-Usage of this is application is pretty simple.
-It requires at least two parameters. The first one is the company name , the second one is the country initials. If no domain name is specified it will create only user lists.
-
-# Usage
 ```
-usage: raven.py [-h] -c COMPANY -s STATE [-d DOMAIN] [-p PAGES] [-f FORMAT]
-                [-v VERIFY] [-l] [-chp] [-lu LUSERNAME] [-lp LPASSWORD]
+## Installation
 
-Raven - LinkedIn Information Gathering Tool
+You can use the precompiled binary, but also you can compile from source.
 
-optional arguments:
-        -h, --help            show this help message and exit
-        -c COMPANY, --company COMPANY
-                            Input the Company name. Ex: Pizzahut
-        -s STATE, --state STATE
-                              Input the State initials. Ex: uk , al , etc...
-        -d DOMAIN, --domain DOMAIN
-                              Input the domain name. Ex: gmail.com
-        -p PAGES, --pages PAGES
-                              Number of google pages to navigate. Ex: 3
-        -f FORMAT, --format FORMAT
-                              Specify format type. Ex: 1,2 or ALL
-        -v VERIFY, --verify VERIFY
-                              Verify e-mails by using OWA. Ex:
-                              https://mail.example.com/
-        -l, --list            List formats
-        -chp, --check-pwned   Checks if the email can be found in a public
-                              databreach
-        -lu LUSERNAME, --lusername LUSERNAME
-                              The linkedin username to use.
-        -lp LPASSWORD, --lpassword LPASSWORD
-                              The linekdin password to use.
+You need to install chromedriver even if you use a precompiled binary or compiling from source.
 
-```
-For example , if the company that you want to search is Evil Corp and the state is Albania the parameters would be:
+# Dependencies
+* [https://github.com/chzyer/readline](https://github.com/chzyer/readline)	
+* [https://github.com/gorilla/mux](https://github.com/gorilla/mux)
+* [https://github.com/mattn/go-sqlite3](https://github.com/mattn/go-sqlite3)
+* [https://github.com/olekukonko/tablewriter](https://github.com/olekukonko/tablewriter)
+* [http://gopkg.in/gcfg.v1](http://gopkg.in/gcfg.v1)
+* [https://github.com/sclevine/agouti](https://github.com/sclevine/agouti)
 
+## How it works
 
-    python raven.py -c 'Evil Corp' -s al -d evilcorp.al
+The main idea is that given a company name, searches all possible matches of Linkedin Employees in Google and then extracts their data. Based on that, it can build e-mail addresses in different formats, export them and also check them in haveibeenpwned.com.
 
-The state parameter is actually the linkedin subdomain. In case there is no subdomain for your state you can use the www.
+The previous version of raven allowed you to extract data only after finishing a scan and only in a specified format. In case you wanted to extract the same info but with a different e-mail format , you needed to re-run the scan which wasn't very practical.
 
-You can also specify how many pages of Google Search you want to search  with the -p parameters
+In this version it is possible that given a scan, you can export the data as many times as you want, in different formats and also check them in haveibeenpwned.com with only one command.
 
-    python raven.py -c 'Evil Corp' -s al -d evilcorp.al -p 3
+# Scan
 
-The command above will search for results on 3 first pages of google.
+A ```Scan``` is the process of extracting the public information from Google and Linkedin and storing it in the database.
 
-## E-mail/Username formats
+To create a scan you can run the command ``` new scan ``` this will bring you to the scan instance. There are some properties that should be configured before running a scan as can be seen below.
 
-```
-Email formats - John Doe
+<center>
+<img src="/images/raven-new-scan.png">
+<br><br></center>
 
-# 1- john.doe@example.com 	-- {firstname}.{lastname}@{domain}
-# 2- doe.john@example.com 	-- {lastname}.{firstname}@{domain}
-# 3- john-doe@example.com 	-- {firstname}-{lastname}@{domain}
-# 4- jdoe@example.com 		-- {firstname[0]}{lastname}@{domain}
-# 5- doe.j@example.com 		-- {lastname}{firstname[0]}@{domain}
-# 6- d.joe@example.com 		-- {lastname[0]}{firstname}@{domain}
-# 7- joe.d@example.com 		-- {firstname}{lastname[0]}@{domain}
-# 8- All of above
+* ```Scan_id``` - Can't be changed, is the scan id which is used as a PK in the database.
+* ```Scan_name``` - The name of the scan, used later when you want to export data.
+* ```Company``` - The name of the company that you want to extract employees.
+* ```Domain``` - This is the subdomain of the main LinkedIn website. If you want to target a specific country you can specify the subdomain. For example , Albania has the subdomain ```al```. In case you don't know the subdomain use ```www```.
+* ```Pages_number``` - The number of Google pages to extract information from.
 
-```
+Running the command ```options``` you can see the properties and values that are assigned.
 
-# Tool Internals
+Below is an example scan:
 
-The tool actually is a scraper that works with selenium. It uses a google dork to extract the LinkedIn url's and then it exctracts data from them. As you may know Linkedin has different subdomains for country-s.
+<center>
+<img src="/images/raven-new-scan.png">
+<br><br></center>
 
-      For example : al.linkedin.com is for Albania, uk.linkedin.com is for United Kingdom etc. 
+After setting the properties you can use ```start``` to start the scan.
+The scan will insert the data in the database so that you can use it later.
 
-The state parameter is actually the subdomain of the LinkedIn website.
+# Export
 
-# Features
+After finishing the scan, you can use the data by running ```use (scan_name)```.
+This will bring you to export instance. The export instance allows you to export the data in different formats and check them in haveibeenpwned.com .
 
-* Automatically check found emails in haveibeenpwned.com
-* Output in CSV format (For using with GoPhish)
+The export instance has 3 properties.
 
-# Screenshots
+* ```Format``` - The format of the e-mails.
+* ```Domain``` - The domain to append to the "usernames".
+* ```Output``` - Filename to write the output.
 
-Screenshot - 1
+Below are the avaible formats. You can use also the ```ALL``` in case you want to generate all the avaiable formats, and then use a custom tool to verify the e-mail addresses.
 
-![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-01.png)
+<center>
+<img src="/images/raven-formats.png">
+<br><br></center>
 
-
-Screenshot - 2
-
-![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-02.png)
-
-
-Screenshot - 3
-
-![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-03.png)
-
-
-Screenshot - 4
-
-![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-04.png)
-
-
-Screenshot - 5
-
-![ScreenShot](https://raw.githubusercontent.com/0x09AL/raven/master/screenshots/screenshot-05.png)
+After specifying a format and a domain, you can export them using the ```export``` command or check if they have been breached by using the ```checkpwned``` command as can be seen below.
+<center>
+<img src="/images/raven-checkpwned.png">
+<br><br></center>
