@@ -40,7 +40,7 @@ To create a scan you can run the command ``` new scan ``` this will bring you to
 
 <center>
 <img src="/images/raven-new-scan.png">
-<br></center>
+</center>
 
 * ```Scan_id``` - Can't be changed, is the scan id which is used as a PK in the database.
 * ```Scan_name``` - The name of the scan, used later when you want to export data.
@@ -54,7 +54,7 @@ Below is an example scan:
 
 <center>
 <img src="/images/raven-new-scan.png">
-<br></center>
+</center>
 
 After setting the properties you can use ```start``` to start the scan.
 The scan will insert the data in the database so that you can use it later.
@@ -74,9 +74,9 @@ Below are the avaible formats. You can use also the ```ALL``` in case you want t
 
 <center>
 <img src="/images/raven-formats.png">
-<br></center>
+</center>
 
 After specifying a format and a domain, you can export them using the ```export``` command or check if they have been breached by using the ```checkpwned``` command as can be seen below.
 <center>
 <img src="/images/raven-checkpwned.png">
-<br></center>
+</center>
