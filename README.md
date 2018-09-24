@@ -16,6 +16,15 @@ You can use the precompiled binary, but also you can compile from source.
 
 You need to install chromedriver even if you use a precompiled binary or compiling from source.
 
+Edit the credentials in the ```config.conf```
+```
+[creds]
+username=USERNAME
+password=PASSWORD
+[extra]
+searchengine=google
+```
+
 # Dependencies
 * [https://github.com/chzyer/readline](https://github.com/chzyer/readline)	
 * [https://github.com/gorilla/mux](https://github.com/gorilla/mux)
