@@ -2,11 +2,11 @@ package main
 
 import (
 
-	"raven-go/model"
+	"raven/model"
 	"gopkg.in/gcfg.v1"
 	"log"
-	"raven-go/terminal"
-	"raven-go/scraper"
+	"raven/terminal"
+	"raven/scraper"
 	"fmt"
 	b64 "encoding/base64"
 )

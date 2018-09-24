@@ -4,7 +4,7 @@ import (
 	"github.com/sclevine/agouti"
 	"log"
 	"strings"
-	"raven-go/model"
+	"raven/model"
 )
 
 var driver = agouti.ChromeDriver()

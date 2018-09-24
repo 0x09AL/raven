@@ -10,9 +10,9 @@ import (
 	"encoding/json"
 	"log"
 	"strconv"
-	"raven-go/scraper"
-	"raven-go/database"
-	"raven-go/exporter"
+	"raven/scraper"
+	"raven/database"
+	"raven/exporter"
 
 )
 

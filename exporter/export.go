@@ -1,9 +1,9 @@
 package exporter
 
 import (
-	"raven-go/model"
+	"raven/model"
 	"fmt"
-	"raven-go/database"
+	"raven/database"
 	"strings"
 	"time"
 	"os"

@@ -2,7 +2,7 @@ package database
 import(
 	_ "database/sql"
 	_"github.com/mattn/go-sqlite3"
-	"raven-go/model"
+	"raven/model"
 	"fmt"
 	"log"
 )

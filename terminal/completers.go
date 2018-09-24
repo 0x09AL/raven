@@ -2,7 +2,7 @@ package terminal
 
 import (
 	"github.com/chzyer/readline"
-	"raven-go/database"
+	"raven/database"
 	)
 
 var MainCompleter = readline.NewPrefixCompleter(

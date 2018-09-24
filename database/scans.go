@@ -1,7 +1,7 @@
 package database
 
 import (
-	"raven-go/model"
+	"raven/model"
 	"log"
 	"fmt"
 	_ "database/sql"

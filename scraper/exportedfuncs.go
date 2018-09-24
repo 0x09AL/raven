@@ -2,9 +2,9 @@ package scraper
 
 import (
 	"fmt"
-	"raven-go/model"
+	"raven/model"
 
-	"raven-go/database"
+	"raven/database"
 )
 var LUsername string
 var LPassword string
