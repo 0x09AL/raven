@@ -24,6 +24,24 @@ password=PASSWORD
 [extra]
 searchengine=google
 ```
+## Compiling on Linux
+```bash
+export GOPATH=/YOUR/GOPATH/HERE
+cd $GOPATH/src/
+git clone https://github.com/0x09AL/raven
+go get github.com/chzyer/readline
+go get github.com/gorilla/mux
+go get github.com/mattn/go-sqlite3
+go get github.com/olekukonko/tablewriter
+go get gopkg.in/gcfg.v1
+go get github.com/sclevine/agouti
+go build raven
+wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv -f chromedriver /usr/bin/chromedriver
+sudo chown root:root /usr/bin/chromedriver
+sudo chmod 0755 /usr/bin/chromedriver
+```
 
 # Dependencies
 * [https://github.com/chzyer/readline](https://github.com/chzyer/readline)	
