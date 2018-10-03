@@ -36,12 +36,20 @@ go get github.com/olekukonko/tablewriter
 go get gopkg.in/gcfg.v1
 go get github.com/sclevine/agouti
 go build raven
+
+```
+## Installing chromedriver
+
+```bash
 wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
 unzip chromedriver_linux64.zip
 sudo mv -f chromedriver /usr/bin/chromedriver
 sudo chown root:root /usr/bin/chromedriver
 sudo chmod 0755 /usr/bin/chromedriver
 ```
+## Releases
+
+[https://github.com/0x09AL/raven/releases](https://github.com/0x09AL/raven/releases)
 
 # Dependencies
 * [https://github.com/chzyer/readline](https://github.com/chzyer/readline)	
