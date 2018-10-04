@@ -97,6 +97,7 @@ The scan will insert the data in the database so that you can use it later.
 # Export
 
 After finishing the scan, you can use the data by running ```use (scan_name)```.
+To use this command you need to be on the ```main``` instance. For example if you finished a scan, you need to type ```back``` to return to the main instance.
 This will bring you to export instance. The export instance allows you to export the data in different formats and check them in haveibeenpwned.com .
 
 The export instance has 3 properties.
