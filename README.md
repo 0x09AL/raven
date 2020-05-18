@@ -1,4 +1,5 @@
 # Raven
+## [Currently is not being maintained]
 Raven is a Linkedin information gathering tool that  can be used by pentesters to gather information about an organization employees using Linkedin.
 
 ## Disclaimer
